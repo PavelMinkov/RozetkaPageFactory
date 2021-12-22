@@ -1,6 +1,6 @@
 ﻿using Dapper;
-using System.Configuration;
 using System.Data.OleDb;
+using System.IO;
 using System.Linq;
 
 namespace RozetkaPageFactory.TestDataAccess
@@ -9,8 +9,9 @@ namespace RozetkaPageFactory.TestDataAccess
     {
         public static string TestDataFileConnection()
         {
-            var fileName = ConfigurationManager.AppSettings["TestDataSheetPath"];
-            var con = string.Format(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Паша\EPAM\LAB\HomeWork\RozetkaPageFactory\RozetkaPageFactory\TestDataAccess\TestData.xlsx; Extended Properties=Excel 12.0;", fileName);
+            string fileName = Directory.GetCurrentDirectory();
+            fileName = fileName.Substring(0, fileName.Length - 17);
+            var con = string.Format(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0}\TestDataAccess\TestData.xlsx; Extended Properties=Excel 12.0;", fileName);
             return con;
         }
 
